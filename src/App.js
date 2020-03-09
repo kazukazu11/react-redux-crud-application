@@ -29,19 +29,53 @@
 import React from 'react';
 
 /*関数コンポーネント*/
+// const App = () =>{
+// 	return  (
+// 		<div>
+// 			<Cat />
+// 			<Cat />
+// 			<Cat />
+// 			<Cat />
+// 		</div>
+// 	)
+// }
+
+// const Cat = () =>{
+// 	return  <div>Meow!</div>
+// }
+
+/*このAppの事を関数コンポーネント*/
 const App = () =>{
+	const profiles = [
+		{name:"Taro",age:10},
+		{name:"Hanako",age:5},
+		{name:"NoName"}
+	]
 	return  (
+		/*Userコンポーネントに対して,nameというpropsの属性を与えられる*/
+		/*uniqueなキーがプロパティとして存在していないと駄目。
+		  ReactではVirtualDomが存在していて、その中でどのDomが変更になったのかを管理。
+		  その変更点のみを実際のDomに反映していく。
+		  それぞれのDomにキーを与える。
+		  必要最低限のDomの範囲をReactが管理。
+		  Domを指し示すもの（キーが必要）*/
 		<div>
-			<Cat />
-			<Cat />
-			<Cat />
-			<Cat />
+			{
+				profiles.map((profile, index)=>{
+					return <User name={profile.name} age={profile.age} key={index}/>
+				})
+			}
 		</div>
 	)
 }
 
-const Cat = () =>{
-	return  <div>Meow!</div>
+const User = (props) =>{
+	return  <div>Hi!,I am {props.name}, and {props.age} years old!</div>
+}
+
+/*例えば、ageというpropsの属性に値が入っていない時にdefaultで入れる値の設定*/
+User.defaultProps = {
+	age:1
 }
 
 export default App;
