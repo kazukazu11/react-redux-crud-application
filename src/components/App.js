@@ -1,44 +1,32 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-const App = () => (<Counter></Counter>)
+import { increment,decrement } from '../actions'
 
-class Counter extends Component{
-	//constructorは初期化処理で実行されるメソッド
-	constructor(props){
-		super(props)
-		this.state = { count: 0}  //counteをkeyとして、値が0という意味
-	}
-
-	handlePlus1Button = () => {
-		//this.state = { count: this.state.count + 1}のように、
-		//stateを直接いじっては駄目。setStateを使いなさい
-		//何故かというと、setStateが実行されるとrenderが実行される。
-		this.setState({ count: this.state.count + 1 })
-	}
-
-	handlePlus2Button = () => {
-		this.setState({ count: this.state.count + 2 })
-	}
-
-	handleMinus1Button = () => {
-		this.setState({ count: this.state.count - 1 })
-	}
-
-	handleMinus2Button = () => {
-		this.setState({ count: this.state.count - 2 })
-	}
-
+class App extends Component{
 	render(){
+		const props = this.props
+
 		return(
 			<React.Fragment>
-				<div>count: { this.state.count }</div>
-				<button onClick={this.handlePlus1Button}>+1</button>
-				<button onClick={this.handlePlus2Button}>+2</button>
-				<button onClick={this.handleMinus1Button}>-1</button>
-				<button onClick={this.handleMinus2Button}>-2</button>
+				<div>value: { props.value }</div>
+				<button onClick={props.increment}>+1</button>
+				<button onClick={props.decrement}>-1</button>
 			</React.Fragment>
 		)
 	}
 }
 
-export default App;
+const mapStateToProps = state => ({value: state.count.value})
+
+//const mapDispatchToProps = dispatch => ({
+//	increment: () => dispatch(increment()),
+//	decrement: () => dispatch(decrement())
+//})
+
+//別の書き方⬇︎
+
+const mapDispatchToProps = ({ increment,decrement })
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
