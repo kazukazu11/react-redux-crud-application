@@ -4,9 +4,9 @@
 
 //combineReducers＝＝reducerを結合する為の関数
 import {combineReducers} from 'redux'
-import count from './count'
+import events from './events'
 
-export default combineReducers({ count })
+export default combineReducers({ events })
 
 //他にも状態を管理したい場合
 //export default combineReducers({ foo, bar, baz })

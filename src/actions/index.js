@@ -1,22 +1,12 @@
-//actionとはjavascriptのobjectの事、typeの値はuniqueのものでなければならない
-//actionを返す関数の事をアクションクリエイターと呼ぶ
+import axios from 'axios'
 
-export const INCREMENT = 'INCREMENT'
-export const DECREMENT = 'DECREMENT'
+export const READ_EVENTS = 'READ_EVENTS'
 
-//viewを担当するcomponentで使用する場合、exportしておく
-export const increment = () => ({  //⬅️アクションクリエイター
-	type: INCREMENT
-})
+const Root_URL = 'https://udemy-utils.herokuapp.com/api/v1';
+const QUERYSTRING = '?token=token123'
 
-// export const decrement = () => {
-// 	return {
-// 		type: 'DECREMENT'
-// 	}
-// }
-
-//⬇︎リファクタリング⬇︎
-
-export const decrement = () => ({
-	type: DECREMENT
-})
+export const readEvents = () => async dispatch => {
+	const response = await axios.get(Root_URL+'/events'+QUERYSTRING)
+	console.log(response)
+	dispatch({ type: READ_EVENTS,response })
+}
